@@ -15,6 +15,7 @@ import com.example.demo.configuration.CustomUserDetail;
 import com.example.demo.entity.DonorDetails;
 import com.example.demo.entity.PatientDetails;
 import com.example.demo.entity.RegistrationDetails;
+import com.example.demo.repository.RegistrationDetailsRepository;
 import com.example.demo.service.RegistrationDetailsService;
 import com.example.demo.service.UserService;
 
@@ -286,6 +287,14 @@ public class UserController {
 			return "bloodRequest";
 		}
 		return "bloodRequest";
+	}
+	
+	@PostMapping("/deleteUser")
+	public String deleteUser(HttpSession session, Model model) {
+		
+		String email = (String) session.getAttribute("userEmail");
+		loginService.deleteUser(email);
+		return "userLogin";
 	}
 	
 	

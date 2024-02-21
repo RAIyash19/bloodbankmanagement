@@ -12,4 +12,6 @@ public interface RegistrationDetailsRepository  extends JpaRepository<Registrati
 	public List<RegistrationDetails> findAllByEmail(String email);
 	
 	public List<RegistrationDetails> findByRole(String role);
+	
+	 public void deleteByEmail(String email);
 }

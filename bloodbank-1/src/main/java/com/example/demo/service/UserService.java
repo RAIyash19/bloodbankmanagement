@@ -22,6 +22,7 @@ import com.example.demo.entity.DonorDetails;
 import com.example.demo.entity.Inventory;
 import com.example.demo.entity.PatientDetails;
 import com.example.demo.entity.RegistrationDetails;
+import com.example.demo.repository.RegistrationDetailsRepository;
 
 @Service
 public class UserService {
@@ -40,6 +41,9 @@ public class UserService {
 	
 	@Autowired
 	private SendEmailService emailService;
+	
+	@Autowired
+	private RegistrationDetailsRepository registrationRepo;
 	
 	
 	
@@ -520,6 +524,11 @@ public int sendOtpp(String email) {
 //		// TODO Auto-generated method stub
 //		return 0;
 //	}
+	
+	public void deleteUser(String email) {
+		registrationRepo.deleteByEmail(email);
+		
+	}
 
 
 
