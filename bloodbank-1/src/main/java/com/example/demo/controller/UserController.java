@@ -115,7 +115,7 @@ public class UserController {
 	public String viewProfileDetails(HttpSession session,Model model) {
 		
 		CustomUserDetail user = (CustomUserDetail) session.getAttribute("user");
-		
+		String e = (String) session.getAttribute("userEmail");
 		
 		String email = user.getEmail();
 		List<RegistrationDetails> detail =  loginService.getProfileDetails(email);
@@ -291,10 +291,12 @@ public class UserController {
 	
 	@PostMapping("/deleteUser")
 	public String deleteUser(HttpSession session, Model model) {
+		System.out.println("inside deleteUser");
 		
 		String email = (String) session.getAttribute("userEmail");
 		loginService.deleteUser(email);
-		return "userLogin";
+		
+		 return "redirect:/userLogin";
 	}
 	
 	

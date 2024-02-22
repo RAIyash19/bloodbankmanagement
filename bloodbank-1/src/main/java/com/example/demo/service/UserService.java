@@ -24,6 +24,8 @@ import com.example.demo.entity.PatientDetails;
 import com.example.demo.entity.RegistrationDetails;
 import com.example.demo.repository.RegistrationDetailsRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class UserService {
 	
@@ -525,6 +527,7 @@ public int sendOtpp(String email) {
 //		return 0;
 //	}
 	
+	@Transactional
 	public void deleteUser(String email) {
 		registrationRepo.deleteByEmail(email);
 		
