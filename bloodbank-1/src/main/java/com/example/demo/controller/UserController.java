@@ -30,7 +30,7 @@ public class UserController {
 	
 	
 	
-	@GetMapping("/viewUserProfileDetails")//1
+	@GetMapping("/viewUserProfileDetails")//
 	public String viewProfileDetails(HttpSession session,Model model) {
 		
 		CustomUserDetail user = (CustomUserDetail) session.getAttribute("user");
@@ -94,18 +94,18 @@ public class UserController {
 			return "userDonationRequestHistory";
 	}
 	
-	@GetMapping("/viewAcceptedBloodDonationCount/{email}")//1
-	public String getBloodDonationCount(@PathVariable("email") String email) {
-		 loginService.findBloodDonationsCount(email);
-		 return null;
-	}
-	
-	@GetMapping("/viewAcceptedBloodRequestCount/{email}") // acepted requests
-	public String getBloodRequestCount(@PathVariable("email") String email) {
-		 loginService.findBloodRequestsCount(email);
-		 return null;
-	}
-	
+//	@GetMapping("/viewAcceptedBloodDonationCount/{email}")//
+//	public String getBloodDonationCount(@PathVariable("email") String email) {
+//		 loginService.findBloodDonationsCount(email);
+//		 return null;
+//	}
+//	
+//	@GetMapping("/viewAcceptedBloodRequestCount/{email}") // acepted requests
+//	public String getBloodRequestCount(@PathVariable("email") String email) {
+//		 loginService.findBloodRequestsCount(email);
+//		 return null;
+//	}
+//	
 	@PostMapping("/bloodDonationRequest")//1
 	public String donateRequest(@ModelAttribute("received") DonorDetails received,HttpSession session, Model model) {
 //		
