@@ -30,7 +30,7 @@ class UserControllerTest {
 
     @Mock
     private UserService loginService;
-//
+
 //    @Test
 //    void testViewProfileDetails() {
 //        HttpSession session = mock(HttpSession.class);
@@ -49,6 +49,7 @@ class UserControllerTest {
 //        assertEquals("userProfile", result);
 //        verify(model).addAttribute(eq("user"), eq(userDetails));
 //    }
+    
 
     @Test
     void testUpdateProfile() {
