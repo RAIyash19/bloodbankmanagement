@@ -50,7 +50,7 @@
 //
 //        // Assert
 //        assertNotNull(foundDonors);
-//        assertEquals(5, foundDonors.size());
+//        assertEquals(2, foundDonors.size());
 //        assertEquals((byte) 1, foundDonors.get(0).getStatus());
 //    }
 //

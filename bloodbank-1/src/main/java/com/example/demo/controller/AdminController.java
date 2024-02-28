@@ -70,50 +70,6 @@ public class AdminController {
 	private SendEmailService emailService;
 
 	
-//	@GetMapping("/verifyAdminLogin")
-//    public String verifyAdminLogin(@ModelAttribute("received") RegistrationDetails received, 
-//                                   HttpSession session, Model model) {
-//		System.out.println(received.getEmail());
-//        int status = service.verifyLogin(received);
-//
-//        if (status == 1) {
-//            // If login is successful, set the email as a session attribute
-//            session.setAttribute("loggedInUserEmail", received.getEmail());
-//            //totaldonation
-//            List<Integer> countDonor = countDonorsWithStatusOne();
-//            int a=countDonor.get(0);
-//            System.out.println(a);
-//            
-//            model.addAttribute("DonorCount", a);
-//            
-//            
-//            //totalrequest
-//            int b= countBloodRequest();
-//            System.out.println(b);
-//            model.addAttribute("requestCount", b);
-//            
-//            //bloodcount
-//           
-//            List<BloodGroupDetails> bloodCount = getDetail();
-//            model.addAttribute("bloodGroupDetailsList", bloodCount);
-//            
-//
-//            // Redirect to the admin home page
-//            return "adminHome";
-//        } else if (status == 0) {
-//            model.addAttribute("invalidMail", "This email is not admin");
-//            return "adminLogin";
-//        } else if (status == -1) {
-//            model.addAttribute("error", "Invalid username or password");
-//        }
-//        
-//        
-//         
-//        // If login fails, stay on the login page
-//        return "adminLogin";
-//    }
-	
-	
 	@GetMapping("/viewProfileDetail")
 	public String viewProfileDetail(HttpSession session, Model model) {
 	    // Retrieve the email from the session
@@ -269,8 +225,6 @@ public class AdminController {
 	{
 	  System.out.println(detail.getEmail());
 	  service.updateUserProfile(detail);
-	  //model.addAttribute("adminUpdate", "admin detail updated");
-//		return new ResponseEntity<RegistrationDetails>(detail, HttpStatus.OK);
 	  return "redirect:/admin/viewProfileDetail";
 	}
 
