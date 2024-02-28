@@ -40,6 +40,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BBM User Login</title>
     <link rel="icon" href="static/images/favicon.ico" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 
     <style>
         
@@ -307,6 +309,15 @@ footer a {
 </head>
 <body>
     <div class="container" id="container">
+		<div style="display: none;" th:if="${otpMismatch}" class="error-message">
+    <p th:text="${otpMismatch}"></p>
+</div>
+
+<script th:if="${otpMismatch}">
+            alert("[[${otpMismatch}]]");
+        </script>
+<!--<span style="display: none;" id="donateMessageSpan" class ="error-attribute" th:if="${otpMismatch}"  th:text="${otpMismatch}"></span>-->
+
         <div class="form-container sign-up-container">
            <!--  <form th:action="@{/register}" th:object = "${detail}" method="post">
                 <h1>Create Account</h1>
@@ -452,6 +463,35 @@ footer a {
 			return true; // Allow form submission
 		}
 	</script> 
+	
+<!--	<script>
+    // Wait for the document to be ready
+    $(document).ready(function() {
+        // Get the text content of the hidden span element
+        var otpMismatch = $('#donateMessageSpan').text();
+        
+        // Check if the otpMismatch is not empty
+        if (otpMismatch.trim() !== '') {
+            // Display the message in an alert
+            alert(otpMismatch);
+        }
+    });
+</script>-->
+
+	
+	<!--<script>
+    // Wait for the document to be ready
+    $(document).ready(function() {
+        // Get the text content of the hidden span element
+        var otpMismatch = $('#donateMessageSpan').text();
+        
+        // Check if the donateMessage is not empty
+        if(otpMismatch.trim() !== '') {
+            // Display the message in an alert
+            alert(otpMismatch);
+        }
+    });
+</script>-->
 	
 	<!--<script>
 		function validateForm() {

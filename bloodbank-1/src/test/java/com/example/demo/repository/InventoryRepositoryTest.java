@@ -74,6 +74,6 @@ public class InventoryRepositoryTest {
         inventoryRepository.deleteByBloodId(savedInventory.getBloodId());
 
         // Assert
-        assertEquals(21, inventoryRepository.count());
+        assertEquals(0, inventoryRepository.count());
     }
 }

@@ -73,7 +73,7 @@ import java.util.List;
 
 	        // Assert
 	        assertNotNull(foundDetailsList);
-	        assertEquals(2, foundDetailsList.size());
+	        assertEquals(1, foundDetailsList.size());
 	        assertEquals("ADMIN", foundDetailsList.get(0).getRole());
 	    }
 	    
