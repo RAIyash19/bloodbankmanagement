@@ -30,88 +30,7 @@ public class UserController {
 	
 	
 	
-	
-//	@GetMapping("/verifyUserLogin")//1
-//	public String verifyLogin(@ModelAttribute("received") RegistrationDetails received, HttpSession session, Model model) {
-//        int status = loginService.verifyLogin(received);
-//
-//        if (status == 1) {
-//            // If login is successful, return the Thymeleaf template name for redirection
-//            //return "redirect:/dashboard_u";
-//        	  //return "userDashboard";
-//        	session.setAttribute("userEmail", received.getEmail());
-//        	return "redirect:/userHome";
-//        } 
-//        else if (status == 0) {
-//        	model.addAttribute("message", "Email is invalid");
-//        }
-//        else {
-//            // If login fails, add an error message to the model and stay on the login page
-//            model.addAttribute("error", "Invalid password");
-//        }
-//        return "userLogin"; 
-//    }
-	
-//	@PostMapping("/sendOTP/{email}")
-//	@ResponseStatus(HttpStatus.OK)
-//	@ResponseBody
-//	public void sendOtp(@PathVariable("email") String email, Model model) {
-//		int status = loginService.sendOtp(email);
-//		if (status ==1) {
-//			model.addAttribute("message", "User aleady existing");
-//		}
-//		System.out.println("request mapped " + email);
-//		
-//	}
-	
-
-	
-//	@PostMapping("/resetPassword")
-////	public String resetPassword(@PathVariable("email") String email,@PathVariable("otp") int otp,@PathVariable("password") String password, Model model) {
-//	public String resetPassword(@ModelAttribute("detail") RegistrationDetails detail, Model model) {
-//		
-//		int status = loginService.resetPassword(detail.getEmail(), detail.getOtp(),detail.getPassword(), model);
-//		if (status==1) 
-//			return "redirect:/userLogin";
-//		return "foregetPassword";
-//	}
-	
-	
-//	@GetMapping("/viewProfileDetail")
-//	public String viewProfileDetail(HttpSession session, Model model) {
-//	    // Retrieve the email from the session
-//	   // String adminEmail = (String) session.getAttribute("loggedInUserEmail");
-//	    CustomUserDetail user = (CustomUserDetail) session.getAttribute("user");
-//	    String email = user.getEmail();
-//	    
-//	    System.out.println(email);
-//
-//	    if (email == null) {
-//	        // Handle the case where the admin is not logged in
-//	        return "redirect:/adminLogin";  // Redirect to the admin login page or handle appropriately
-//	    }
-//
-//	    // Add logic to fetch user details based on the admin's email
-//	    List<RegistrationDetails> userDetails = loginService.getProfileDetails(email);
-//	    for(RegistrationDetails a:userDetails) {
-//	    	System.out.println(a.getBloodGroup());
-//	    	System.out.println(a.getCity());
-//	    	System.out.println(a.getFirstname());
-//	    }
-//
-//	    // Add the user details to the model
-//	    model.addAttribute("user", userDetails);
-//
-//	    // Return the Thymeleaf template name
-//	    return "userProfile";
-//	}
-	
-	
-	
-	
-	
-	
-	@GetMapping("/viewUserProfileDetails")//1
+	@GetMapping("/viewUserProfileDetails")//
 	public String viewProfileDetails(HttpSession session,Model model) {
 		
 		CustomUserDetail user = (CustomUserDetail) session.getAttribute("user");
@@ -175,18 +94,18 @@ public class UserController {
 			return "userDonationRequestHistory";
 	}
 	
-	@GetMapping("/viewAcceptedBloodDonationCount/{email}")//1
-	public String getBloodDonationCount(@PathVariable("email") String email) {
-		 loginService.findBloodDonationsCount(email);
-		 return null;
-	}
-	
-	@GetMapping("/viewAcceptedBloodRequestCount/{email}") // acepted requests
-	public String getBloodRequestCount(@PathVariable("email") String email) {
-		 loginService.findBloodRequestsCount(email);
-		 return null;
-	}
-	
+//	@GetMapping("/viewAcceptedBloodDonationCount/{email}")//
+//	public String getBloodDonationCount(@PathVariable("email") String email) {
+//		 loginService.findBloodDonationsCount(email);
+//		 return null;
+//	}
+//	
+//	@GetMapping("/viewAcceptedBloodRequestCount/{email}") // acepted requests
+//	public String getBloodRequestCount(@PathVariable("email") String email) {
+//		 loginService.findBloodRequestsCount(email);
+//		 return null;
+//	}
+//	
 	@PostMapping("/bloodDonationRequest")//1
 	public String donateRequest(@ModelAttribute("received") DonorDetails received,HttpSession session, Model model) {
 //		

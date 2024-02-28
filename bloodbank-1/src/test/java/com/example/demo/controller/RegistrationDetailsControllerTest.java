@@ -27,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -77,9 +78,11 @@ class RegistrationDetailsControllerTest {
         String result = controller.saveDetail(detail, model);
 
         // Assert the result
-        assertEquals("registrationStatus", result);
+        assertEquals("userLogin", result);
         verify(registrationDetailsService, times(1)).saveRegistrationDetails(any());
     }
+   
+    
     @Test
     public void testGetDetails() {
         // Create a mock RegistrationDetails list

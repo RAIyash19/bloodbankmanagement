@@ -5,6 +5,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -21,6 +26,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {
@@ -30,6 +39,11 @@ class UserControllerTest {
 
     @Mock
     private UserService loginService;
+    
+    private MockMvc mockMvc;
+    
+    @MockBean
+    private UserService userService;
 //
 //    @Test
 //    void testViewProfileDetails() {
@@ -99,61 +113,76 @@ class UserControllerTest {
         assertEquals("userDonationRequestHistory", result);
         verify(model).addAttribute(eq("donationRequestHistory"), eq(donateRequests));
     }
-
-//    @Test
-//    void testGetBloodDonationCount() {
-//        when(loginService.findBloodDonationsCount("test@example.com")).thenReturn(5);
-//
-//        String result = userController.getBloodDonationCount("test@example.com");
-//
-//        assertEquals("Expected result", result); // Add the expected result
-//    }
-
-//    @Test
-//    void testGetBloodRequestCount() {
-//        when(loginService.findBloodRequestsCount("test@example.com")).thenReturn(3);
-//
-//        String result = userController.getBloodRequestCount("test@example.com");
-//
-//        assertEquals("Expected result", result); // Add the expected result
-//    }
-
+    
+    
     @Test
-    void testDonateRequest() {
+    public void testDonateRequest() throws Exception {
+        mockMvc = MockMvcBuilders.standaloneSetup(userController).build(); // Set up MockMvc
+
+        // Assuming a valid DonorDetails object is created for testing
         DonorDetails donorDetails = new DonorDetails();
-        // set properties for donorDetails
+        donorDetails.setEmail("test@example.com"); // Replace with a valid email for testing
+        donorDetails.setDateOfDonation("2024-02-27"); // Replace with a valid date for testing
 
-        HttpSession session = mock(HttpSession.class);
-        Model model = mock(Model.class);
-
-        String result = userController.donateRequest(donorDetails, session, model);
-
-        // Add assertions based on the expected behavior of the method
+        mockMvc.perform(post("/user/bloodDonationRequest")
+                .param("received.email", donorDetails.getEmail())
+                .param("received.dateOfDonation", donorDetails.getDateOfDonation()))
+                .andExpect(status().isOk())
+                .andExpect(view().name("donationRequest")); // Replace with the expected view name
     }
+
+
+
+    
+    @Test
+    public void testBloodRequestSelf() throws Exception {
+        mockMvc = MockMvcBuilders.standaloneSetup(userController).build(); // Set up MockMvc
+
+        // Assuming a valid PatientDetails object is created for testing
+        PatientDetails patientDetails = new PatientDetails();
+        patientDetails.setEmail("test@example.com"); // Replace with a valid email for testing
+        patientDetails.setBloodGroup("A+"); // Replace with a valid blood group for testing
+        patientDetails.setBloodUnits(3); // Replace with a valid number of blood units for testing
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/user/bloodRequestSelf")
+                .param("received.email", patientDetails.getEmail())
+                .param("received.bloodGroup", patientDetails.getBloodGroup())
+                .param("received.bloodUnits", String.valueOf(patientDetails.getBloodUnits())))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("bloodRequest")); // Replace with the expected view name
+    }
+    
+    
+
 
     @Test
-    void testBloodRequestSelf() {
+    public void testBloodRequestOthers() throws Exception {
+        mockMvc = MockMvcBuilders.standaloneSetup(userController).build(); // Set up MockMvc
+
+        // Assuming a valid PatientDetails object is created for testing
         PatientDetails patientDetails = new PatientDetails();
-        // set properties for patientDetails
+        patientDetails.setEmail("test@example.com"); // Replace with a valid email for testing
+        patientDetails.setBloodGroup("A+"); // Replace with a valid blood group for testing
+        patientDetails.setBloodUnits(3); // Replace with a valid number of blood units for testing
 
-        HttpSession session = mock(HttpSession.class);
-        Model model = mock(Model.class);
-
-        String result = userController.bloodRequestSelf(patientDetails, session, model);
-
-        // Add assertions based on the expected behavior of the method
+        mockMvc.perform(MockMvcRequestBuilders.post("/user/bloodRequestOthers")
+                .param("received.email", patientDetails.getEmail())
+                .param("received.bloodGroup", patientDetails.getBloodGroup())
+                .param("received.bloodUnits", String.valueOf(patientDetails.getBloodUnits())))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("bloodRequest")); // Replace with the expected view name
     }
-
-    @Test
-    void testBloodRequestOthers() {
-        PatientDetails patientDetails = new PatientDetails();
-        // set properties for patientDetails
-
-        HttpSession session = mock(HttpSession.class);
-        Model model = mock(Model.class);
-
-        String result = userController.bloodRequestOthers(patientDetails, session, model);
-
-        // Add assertions based on the expected behavior of the method
-    }
+    
+//    @Test
+//    public void testDeleteUser() throws Exception {
+//        // Assuming a valid user email for testing
+//        String userEmail = "test@example.com";
+//
+//        mockMvc.perform(post("/user/deleteUser").sessionAttr("userEmail", userEmail))
+//               .andExpect(status().is3xxRedirection())
+//               .andExpect(redirectedUrl("/userLogin"));
+//
+//        // Verify that deleteUser method is called with the correct email
+//        verify(userService, times(1)).deleteUser(userEmail);
+//    }
 }
