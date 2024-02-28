@@ -1,8 +1,9 @@
 	package com.example.demo.repository;
 	import static org.junit.jupiter.api.Assertions.assertEquals;
 	import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-	import java.util.List;
+import java.util.List;
 
 	import org.junit.jupiter.api.BeforeEach;
 	import org.junit.jupiter.api.Test;
@@ -74,6 +75,41 @@
 	        assertNotNull(foundDetailsList);
 	        assertEquals(2, foundDetailsList.size());
 	        assertEquals("ADMIN", foundDetailsList.get(0).getRole());
+	    }
+	    
+	   
+
+	    @Test
+	    public void testFindByEmail_NonExistingEmail() {
+	        // Act
+	        RegistrationDetails foundDetails = registrationDetailsRepository.findByEmail("nonexistent@example.com");
+
+	        // Assert
+	        assertNull(foundDetails);
+	    }
+
+	   
+
+	    @Test
+	    public void testFindAllByEmail_NonExistingEmail() {
+	        // Act
+	        List<RegistrationDetails> foundDetailsList = registrationDetailsRepository.findAllByEmail("nonexistent@example.com");
+
+	        // Assert
+	        assertNotNull(foundDetailsList);
+	        assertEquals(0, foundDetailsList.size());
+	    }
+
+	   
+
+	    @Test
+	    public void testFindByRole_NonExistingRole() {
+	        // Act
+	        List<RegistrationDetails> foundDetailsList = registrationDetailsRepository.findByRole("NONEXISTENT_ROLE");
+
+	        // Assert
+	        assertNotNull(foundDetailsList);
+	        assertEquals(0, foundDetailsList.size());
 	    }
 	}
 

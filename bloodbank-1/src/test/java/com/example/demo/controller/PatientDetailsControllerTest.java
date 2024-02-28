@@ -1,15 +1,15 @@
 package com.example.demo.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Arrays;
+import java.util.List;
 
 import com.example.demo.entity.PatientDetails;
 import com.example.demo.service.PatientDetailsService;
@@ -24,7 +24,8 @@ class PatientDetailsControllerTest {
     private PatientDetailsService service;
 
     @Test
-    void testSavePatientDetailsC() {
+    void testSavePatientDetails_Success() {
+        // Arrange
         PatientDetails patientDetails = new PatientDetails();
         patientDetails.setId(1L);
         patientDetails.setFirstname("John Doe");
@@ -32,13 +33,16 @@ class PatientDetailsControllerTest {
 
         when(service.savePatientDetails(patientDetails)).thenReturn(patientDetails);
 
+        // Act
         PatientDetails result = controller.savePatientDetailsC(patientDetails);
 
+        // Assert
         assertEquals(patientDetails, result);
     }
 
     @Test
-    void testGetPatientsDetailsC() {
+    void testGetPatientsDetails_Success() {
+        // Arrange
         PatientDetails patient1 = new PatientDetails();
         patient1.setId(1L);
         patient1.setFirstname("John Doe");
@@ -53,9 +57,59 @@ class PatientDetailsControllerTest {
 
         when(service.getPatientDetails()).thenReturn(patientDetailsList);
 
+        // Act
         List<PatientDetails> result = controller.getPatientsDetailsC();
 
+        // Assert
         assertEquals(patientDetailsList, result);
+    }
+
+    @Test
+    void testSavePatientDetails_NullInput() {
+        // Arrange
+        when(service.savePatientDetails(null)).thenReturn(null);
+
+        // Act
+        PatientDetails result = controller.savePatientDetailsC(null);
+
+        // Assert
+        assertNull(result);
+    }
+
+    @Test
+    void testGetPatientsDetails_EmptyList() {
+        // Arrange
+        when(service.getPatientDetails()).thenReturn(Arrays.asList());
+
+        // Act
+        List<PatientDetails> result = controller.getPatientsDetailsC();
+
+        // Assert
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void testSavePatientDetails_ServiceException() {
+        // Arrange
+        PatientDetails patientDetails = new PatientDetails();
+        patientDetails.setId(1L);
+        patientDetails.setFirstname("John Doe");
+        patientDetails.setEmail("john@example.com");
+
+        when(service.savePatientDetails(patientDetails)).thenThrow(new RuntimeException("Service Exception"));
+
+        // Act & Assert
+        assertThrows(RuntimeException.class, () -> controller.savePatientDetailsC(patientDetails));
+    }
+
+    @Test
+    void testGetPatientsDetails_ServiceException() {
+        // Arrange
+        when(service.getPatientDetails()).thenThrow(new RuntimeException("Service Exception"));
+
+        // Act & Assert
+        assertThrows(RuntimeException.class, () -> controller.getPatientsDetailsC());
     }
 
     // Add more tests as needed for other methods in the controller class.

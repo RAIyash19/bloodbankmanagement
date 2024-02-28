@@ -186,8 +186,8 @@ public class AdminService {
 			}
 			
 		}
-		emailService.sendEmail(email,"this is to inform you", "your blood donation request is rejected");
 		
+		 emailService.sendEmail(email,"this is to inform you", "your blood donation request is rejected");
 		return "no Blood Donation request is there to reject";
 		
 	}

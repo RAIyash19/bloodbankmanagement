@@ -55,8 +55,8 @@ public class PatientDetailsServiceTest {
         when(patientDetailsRepository.findByStatus((byte) 1)).thenReturn(allPatients);
         when(patientDetailsRepository.save(any())).thenReturn(patient1);
     }
-    
-    
+
+    // Test case for saving patient details
     @Test
     public void testSavePatientDetails() {
         // Arrange
@@ -80,9 +80,8 @@ public class PatientDetailsServiceTest {
         // Verify that the save method was called
         verify(patientDetailsRepository, times(1)).save(patientToSave);
     }
-    
-    
 
+    // Test case for getting all patient details
     @Test
     public void testGetPatientDetails() {
         // Act
@@ -90,10 +89,12 @@ public class PatientDetailsServiceTest {
 
         // Assert
         assertEquals(2, resultList.size());
+        // Add more assertions if needed
     }
 
+    // Test case for getting patient details by ID (existing ID)
     @Test
-    public void testGetPatientDetailsByUser() {
+    public void testGetPatientDetailsByUserExistingId() {
         // Act
         Optional<PatientDetails> result = patientDetailsService.getPatientDetailsByUser(1);
 
@@ -102,6 +103,17 @@ public class PatientDetailsServiceTest {
         assertEquals(1, result.get().getId());
     }
 
+    // Test case for getting patient details by ID (non-existent ID)
+    @Test
+    public void testGetPatientDetailsByUserNonExistentId() {
+        // Act
+        Optional<PatientDetails> result = patientDetailsService.getPatientDetailsByUser(3);
+
+        // Assert
+        assertTrue(result.isEmpty());
+    }
+
+    // Test case for getting patient details by email and status
     @Test
     public void testGetPatientDetailsByEmailAndStatus() {
         // Act
@@ -111,17 +123,20 @@ public class PatientDetailsServiceTest {
         assertEquals(1, resultList.size());
         assertEquals("patient1@example.com", resultList.get(0).getEmail());
     }
-    
+
+    // Test case for getting patient details by status
     @Test
-    public void testGetPatientDetailsStatus() {
+    public void testGetPatientDetailsByStatus() {
         // Act
         List<PatientDetails> resultList = patientDetailsService.getPatientDetailsByStatus((byte) 1);
 
         // Assert
         assertEquals(2, resultList.size());
         assertEquals("patient1@example.com", resultList.get(0).getEmail());
+        // Add more assertions if needed
     }
-    
+
+    // Test case for getting patients details by email
     @Test
     public void testGetPatientsDetailsByEmail() {
         // Arrange
@@ -152,6 +167,7 @@ public class PatientDetailsServiceTest {
         verify(patientDetailsRepository, times(1)).findByEmail(email);
     }
 
+    // Test case for updating patient details status
     @Test
     public void testUpdateStatus() {
         // Arrange
@@ -166,9 +182,8 @@ public class PatientDetailsServiceTest {
         assertEquals(detail, result);
         assertEquals(detail.getStatus(), result.getStatus());
     }
-    
-    
-    
+
+    // Test case for getting blood requests history
     @Test
     public void testGetBloodRequestsHistory() {
         // Arrange

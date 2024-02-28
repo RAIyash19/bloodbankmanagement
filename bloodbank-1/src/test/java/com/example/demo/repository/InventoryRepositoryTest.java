@@ -8,8 +8,6 @@ import java.util.List;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.demo.entity.Inventory;
@@ -18,8 +16,6 @@ import com.example.demo.repository.InventoryRepository;
 import jakarta.transaction.Transactional;
 
 @SpringBootTest
-//@DataJpaTest
-//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class InventoryRepositoryTest {
 
     @Autowired
@@ -80,5 +76,4 @@ public class InventoryRepositoryTest {
         // Assert
         assertEquals(21, inventoryRepository.count());
     }
-
 }
