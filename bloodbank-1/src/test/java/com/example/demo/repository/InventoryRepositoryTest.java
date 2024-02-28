@@ -78,7 +78,7 @@
 //        inventoryRepository.deleteByBloodId(savedInventory.getBloodId());
 //
 //        // Assert
-//        assertEquals(21, inventoryRepository.count());
+//        assertEquals(1, inventoryRepository.count());
 //    }
 //
 //}

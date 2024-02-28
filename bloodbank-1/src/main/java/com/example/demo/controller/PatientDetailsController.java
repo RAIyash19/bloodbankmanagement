@@ -18,15 +18,15 @@ public class PatientDetailsController {
 	private PatientDetailsService service;
 	
 	
-	@PostMapping("/addPatientDetails")
-	public PatientDetails savePatientDetailsC(@RequestBody PatientDetails detail) {
-		return service.savePatientDetails(detail);
-	}
-	
-	@GetMapping("/getPatientsDetails")
-	public List<PatientDetails> getPatientsDetailsC() {
-		return service.getPatientDetails();
-	}
+//	@PostMapping("/addPatientDetails")
+//	public PatientDetails savePatientDetailsC(@RequestBody PatientDetails detail) {
+//		return service.savePatientDetails(detail);
+//	}
+//	
+//	@GetMapping("/getPatientsDetails")
+//	public List<PatientDetails> getPatientsDetailsC() {
+//		return service.getPatientDetails();
+//	}
 	
 //	@GetMapping("/getPatientDetailsByEmail/{email}")
 //	public Optional<PatientDetails> getPatientDetailsByEmailC(@PathVariable String email) {
